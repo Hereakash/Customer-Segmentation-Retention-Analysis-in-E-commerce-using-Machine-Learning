@@ -4,12 +4,26 @@ A complete end-to-end data science + ML project that analyzes customer behavior 
 
 ---
 
-## Live App (Streamlit)
-Deploy this repository on **Streamlit Community Cloud** with:
+## 🚀 Live Demo
 
-- **Repository:** `Hereakash/Customer-Segmentation-Retention-Analysis-in-E-commerce-using-Machine-Learning`
-- **Branch:** `main`
-- **Main file:** `app.py`
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://customer-segmentation-retention-analysis-in-e-commerce-using-m.streamlit.app)
+
+> **Deployed App:** https://customer-segmentation-retention-analysis-in-e-commerce-using-m.streamlit.app
+>
+> _(If the URL above does not match your deployment, find the correct link on your [Streamlit Cloud dashboard](https://share.streamlit.io) → **My apps** → click the three-dot menu → **Settings → Sharing**)_
+
+---
+
+## Deploy on Streamlit Community Cloud
+
+To deploy your own copy:
+
+1. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
+2. Click **New app** and fill in:
+   - **Repository:** `Hereakash/Customer-Segmentation-Retention-Analysis-in-E-commerce-using-Machine-Learning`
+   - **Branch:** `main`
+   - **Main file:** `app.py`
+3. Click **Deploy**.
 
 ---
 
@@ -139,6 +153,17 @@ The app computes and visualizes:
 
 ## Flowchart (Project Pipeline)
 
+### Diagram (SVG — always visible on GitHub)
+
+![Pipeline Flowchart](assets/flowchart.svg)
+
+---
+
+### Interactive Diagram (Mermaid)
+
+> **GitHub rendering note:** GitHub renders Mermaid diagrams in Markdown, but rendering may occasionally fail in older browser extensions or PDF exports.
+> If the diagram below does not render, open it in the **[Mermaid Live Editor ↗](https://mermaid.live/edit#eyJjb2RlIjogImZsb3djaGFydCBURFxuICAgIEFbUmF3IERhdGE6IGRhdGEvRWNvbW1lcmNlLmNzdl0gLS0-IEJbU3RyZWFtbGl0IEFwcDogYXBwLnB5XVxuICAgIEIgLS0-IENbUHJlcHJvY2Vzc2luZzogZGF0ZSBwYXJzaW5nICYgY2hhbm5lbCBtYXBwaW5nXVxuICAgIEMgLS0-IERbQW5hbHl0aWNzIEZpbHRlcnM6IGNoYW5uZWxzLCBjYXRlZ29yeSwgZGV2aWNlXVxuICAgIEQgLS0-IEVbRGFzaGJvYXJkczogT3ZlcnZpZXcgLyBNYXJrZXRpbmcgLyBDYXJ0IC8gUXVhbGl0eV1cblxuICAgIEIgLS0-IEZbTG9hZCBNb2RlbHM6IG1vZGVscy8qLnBrbF1cbiAgICBCIC0tPiBHW0xvYWQgRmVhdHVyZSBTY2hlbWE6IHJlcG9ydHMvZmVhdHVyZV9jb2xzLmpzb25dXG4gICAgRiAtLT4gSFtBY3RpdmUgTW9kZWwgU2VsZWN0ZWRdXG4gICAgRyAtLT4gSVtCdWlsZCBGZWF0dXJlIEZyYW1lOiBlbnN1cmUgY29sdW1ucyArIHJlb3JkZXJdXG4gICAgSCAtLT4gSltQcmVkaWN0OiBwcmVkaWN0ICsgcHJlZGljdF9wcm9iYS9kZWNpc2lvbl9mdW5jdGlvbl1cbiAgICBJIC0tPiBKXG5cbiAgICBKIC0tPiBLW1NpbmdsZSBQcmVkaWN0aW9uIFBhZ2VdXG4gICAgSiAtLT4gTFtCYXRjaCBQcmVkaWN0aW9uIFBhZ2VdXG4gICAgSiAtLT4gTVtSaXNrIFJhbmtpbmcgKyBBY3Rpb25zXVxuICAgIEogLS0-IE5bUHJlZGljdGlvbiBIaXN0b3J5IChsb2NhbCBmaWxlIHdyaXRlKV1cblxuICAgIEIgLS0-IE9bU2VnbWVudGF0aW9uXVxuICAgIEQgLS0-IE9cbiAgICBPIC0tPiBQW1JGTSArIFN0YW5kYXJkU2NhbGVyICsgS01lYW5zXSIsICJtZXJtYWlkIjogeyJ0aGVtZSI6ICJkZWZhdWx0In19)**.
+
 ```mermaid
 flowchart TD
     A[Raw Data: data/Ecommerce.csv] --> B[Streamlit App: app.py]
@@ -163,7 +188,52 @@ flowchart TD
     O --> P[RFM + StandardScaler + KMeans]
 ```
 
-> If your GitHub doesn’t render Mermaid diagrams by default in some views, paste the flowchart into Mermaid Live Editor or keep it as documentation. (Streamlit & GitHub generally support Mermaid rendering in Markdown, but it can depend on viewer.)
+---
+
+### ASCII Fallback (plain-text pipeline overview)
+
+```text
+data/Ecommerce.csv
+        |
+        v
+  +-----------------+
+  |  Streamlit App  |  app.py
+  +--------+--------+
+           |
+     +-----+------------------------------------------+
+     |                                                 |
+     v                                                 v
++------------+                              +------------------+
+|Preprocess  |                              |  Load Models     |
+|date/channel|                              |  models/*.pkl    |
++-----+------+                              +--------+---------+
+      |                                              |
+      v                                              v
++----------------+               +--------------------------+
+|Analytics Filter|               |  Feature Schema Alignment|
+|channel/cat/dev |               |  feature_cols.json        |
++-------+--------+               +------------+-------------+
+        |                                     |
+        v                                     v
++---------------+               +-----------------------------+
+|  Dashboards   |               |  Predict                    |
+|Overview/Mktg/ |               |  predict + predict_proba /  |
+|Cart/Quality   |               |  decision_function          |
++---------------+               +-------+---------------------+
+                                        |
+               +------------------------+-----------------------+
+               |                        |                       |
+               v                        v                       v
+       +---------------+   +------------------+   +-----------------+
+       |Single Predict |   |Batch Prediction  |   |Risk Ranking +   |
+       |Page           |   |Page              |   |Actions          |
+       +---------------+   +------------------+   +-----------------+
+
+        +-----------------+
+        |  Segmentation   | <-- (Analytics Filter + App)
+        |  RFM + KMeans   |
+        +-----------------+
+```
 
 ---
 
