@@ -4,6 +4,14 @@ A complete end-to-end data science + ML project that analyzes customer behavior 
 
 ---
 
+## 🚀 Live Demo
+
+**[▶ Open the deployed app](https://customer-segmentation-and-retention-analysis-aatehgmegswnzrwzn.streamlit.app/)**
+
+> https://customer-segmentation-and-retention-analysis-aatehgmegswnzrwzn.streamlit.app/
+
+---
+
 ## Live App (Streamlit)
 Deploy this repository on **Streamlit Community Cloud** with:
 
@@ -163,7 +171,38 @@ flowchart TD
     O --> P[RFM + StandardScaler + KMeans]
 ```
 
-> If your GitHub doesn’t render Mermaid diagrams by default in some views, paste the flowchart into Mermaid Live Editor or keep it as documentation. (Streamlit & GitHub generally support Mermaid rendering in Markdown, but it can depend on viewer.)
+> **Mermaid not rendering?** Paste the block above into **[Mermaid Live Editor](https://mermaid.live)** to view or export the diagram.
+
+**ASCII fallback** (always visible):
+
+```
+data/Ecommerce.csv
+        |
+        v
+  app.py (Streamlit)
+  /       |         \
+ v        v          v
+Preprocess  Load Models   Load Feature Schema
+(dates,     models/*.pkl  reports/feature_cols.json
+ channels)       |               |
+     |           v               v
+     v       Active Model   Build Feature Frame
+Analytics    (session /     (ensure cols + reorder)
+Filters      customer)           |
+     |           +---------------+
+     v                   |
+Dashboards                v
+(Overview /       Predict()  predict_proba()
+ Marketing /              |
+ Cart /          +---------+---------+--------+
+ Quality)        |         |         |        |
+                 v         v         v        v
+            Single    Batch    Risk     Prediction
+            Predict   Predict  Ranking  History
+                          |
+                          v
+             Segmentation (RFM + KMeans)
+```
 
 ---
 
