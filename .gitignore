@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / caches
+*.log
+.cache/
+.pytest_cache/
+
+# Streamlit secrets (never commit)
+.streamlit/secrets.toml
+
+# Your app writes this at runtime; don't commit it
+data/prediction_history.csv
