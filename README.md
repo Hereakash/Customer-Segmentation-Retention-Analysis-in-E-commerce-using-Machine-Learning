@@ -145,7 +145,68 @@ The app computes and visualizes:
 
 ---
 
-## Flowchart (Project Pipeline)
+## Project Pipeline Flowchart
+
+The diagram below is always visible as plain text. A richer interactive version is included underneath for supported viewers.
+
+### Pipeline Overview (ASCII — always visible on GitHub)
+
+```
++---------------------------+
+|  data/Ecommerce.csv       |  <-- Raw data source
++---------------------------+
+              |
+              v
++---------------------------+
+|  app.py  (Streamlit)      |  <-- Entry point
++---------------------------+
+     |         |         |
+     v         v         v
++------------+ +------------+ +------------------------+
+| Preprocess | | Load       | | Load Feature Schema    |
+| (dates,    | | Models     | | reports/feature_cols   |
+| channels)  | | models/    | | .json                  |
+|            | | *.pkl      | | (col order + names)    |
++------------+ +------------+ +------------------------+
+     |             |               |
+     v             v               v
++----------+  +---------+  +-------------------+
+| Analytics|  | Active  |  | Build Feature     |
+| Filters  |  | Model   |  | Frame             |
+| (channel,|  |(session |  |(add missing cols, |
+|  device, |  | or      |  | reorder to schema)|
+|  category|  | customer|  +-------------------+
++----------+  +---------+          |
+     |              |              |
+     v              +--------------+
++---------------------+           |
+| Dashboards          |           v
+| - Overview          |  +---------------------+
+| - Marketing Insights|  | Predict()           |
+| - Cart Analysis     |  | predict_proba() /   |
+| - Data Quality      |  | decision_function() |
++---------------------+  +---------------------+
+     |                            |
+     |          +-----------------+-----------------+
+     |          |        |        |                 |
+     |          v        v        v                 v
+     |   +--------+ +-------+ +--------+  +------------------+
+     |   | Single | | Batch | | Risk   |  | Prediction       |
+     |   | Predict| |Predict| | Ranking|  | History          |
+     |   +--------+ +-------+ | +Actns |  | (local CSV file) |
+     |                        +--------+  +------------------+
+     |
+     v
++-------------------------------------+
+| Segmentation                        |
+| RFM Engineering --> StandardScaler  |
+| --> KMeans Clustering --> Plot      |
++-------------------------------------+
+```
+
+### Interactive Diagram (Mermaid — renders on GitHub and mermaid.live)
+
+> **Note:** GitHub renders Mermaid diagrams natively. If the diagram below does not display in your viewer, paste it into **[https://mermaid.live](https://mermaid.live)** to view or export it as an image.
 
 ```mermaid
 flowchart TD
@@ -164,44 +225,11 @@ flowchart TD
     J --> K[Single Prediction Page]
     J --> L[Batch Prediction Page]
     J --> M[Risk Ranking + Actions]
-    J --> N[Prediction History (local file write)]
+    J --> N[Prediction History: local file write]
 
     B --> O[Segmentation]
     D --> O
     O --> P[RFM + StandardScaler + KMeans]
-```
-
-> **Mermaid not rendering?** Paste the block above into **[Mermaid Live Editor](https://mermaid.live)** to view or export the diagram.
-
-**ASCII fallback** (always visible):
-
-```
-data/Ecommerce.csv
-        |
-        v
-  app.py (Streamlit)
-  /       |         \
- v        v          v
-Preprocess  Load Models   Load Feature Schema
-(dates,     models/*.pkl  reports/feature_cols.json
- channels)       |               |
-     |           v               v
-     v       Active Model   Build Feature Frame
-Analytics    (session /     (ensure cols + reorder)
-Filters      customer)           |
-     |           +---------------+
-     v                   |
-Dashboards                v
-(Overview /       Predict()  predict_proba()
- Marketing /              |
- Cart /          +---------+---------+--------+
- Quality)        |         |         |        |
-                 v         v         v        v
-            Single    Batch    Risk     Prediction
-            Predict   Predict  Ranking  History
-                          |
-                          v
-             Segmentation (RFM + KMeans)
 ```
 
 ---
