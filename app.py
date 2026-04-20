@@ -85,7 +85,7 @@ MODELS_DIR = BASE_DIR / "models"
 REPORTS_DIR = BASE_DIR / "reports"
 PROCESSED_DIR = DATA_DIR / "processed"
 
-RAW_DATA_PATH = DATA_DIR / "ecommerce.csv"
+RAW_DATA_PATH = DATA_DIR / "Ecommerce.csv"
 PROCESSED_PATH = PROCESSED_DIR / "customer_features_phase1.csv"
 FEATURE_COLS_PATH = REPORTS_DIR / "feature_cols.json"
 HISTORY_PATH = DATA_DIR / "prediction_history.csv"
